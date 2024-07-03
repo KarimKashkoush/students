@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القائمة</title>
+
+    <!-- CSs  -->
+    <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="/style/all.css">
+</head>
+
+<body>
+    <!-- SideBar -->
+    <%- include('../views/Components/sidebar.ejs') %>
+        <!-- SideBar -->
+
+        <!-- Main -->
+        <main>
+            <!-- header -->
+            <header class="header">
+                <img src="/images/logo.jpg" alt="">
+            </header>
+            <!-- header -->
+
+            <!-- navbar -->
+            <nav>
+                <h3>مدارس المعالي الإبداعية الأهلية</h3>
+            </nav>
+            <!-- navbar -->
+
+            <section class="list">
+                <section class="section-header">
+                    <h2>قائمة طلاب الفصل</h2>
+                </section>
+
+                <% if (arr.length <=0) { %>
+                    <h2 style="text-align: center; font-size: 22px; color: #0075ff; margin-top: 100px;">لا يوجد بيانات
+                        متاحة</h2>
+                    <% } %>
+
+                        <% if (arr.length> 0) { %>
+                            <section class="container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">م</th>
+                                            <th scope="col">الاسم بالكامل</th>
+                                            <th scope="col">الحضور والغياب</th>
+                                            <th scope="col">التعديلات</th>
+                                            <th scope="col">الحاله</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% arr.forEach((element, index)=> { %>
+                                            <tr>
+                                                <th scope="row">
+                                                    <%= index+1 %>
+                                                </th>
+                                                <td>
+                                                    <%= element.fullName %>
+                                                </td>
+                                                <td>
+                                                    <form
+                                                        action="/pages/attendance/<%= element._id %>/present?_method=PUT"
+                                                        method="POST" style="display:inline;">
+                                                        <button class="Presence" type="submit">حاضر</button>
+                                                    </form>
+                                                    <form
+                                                        action="/pages/attendance/<%= element._id %>/absent?_method=PUT"
+                                                        method="POST" style="display:inline;">
+                                                        <button class="absence" type="submit">غائب</button>
+                                                    </form>
+                                                </td>
+                                                <td class="edit-td">
+                                                    <button>
+                                                        <a class="view-btn" href="/pages/<%=element._id%>">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </a>
+                                                    </button>
+
+                                                    <a class="edit-btn" href="/pages/edit.html/<%=element._id%>">
+                                                        <i class="fa-solid fa-pen"></i>
+                                                    </a>
+
+                                                    <form action="/pages/<%= element._id %>?_method=DELETE"
+                                                        method="post">
+                                                        <button class="delete-btn">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <% if (element.attendanceRecords.length===0) { %>
+                                                        لا يوجد تسجيل
+                                                        <% } else { %>
+                                                            <% const
+                                                                lastRecord=element.attendanceRecords[element.attendanceRecords.length
+                                                                - 1]; %>
+                                                                <% const today=new Date(); %>
+                                                                    <% if
+                                                                        (lastRecord.date.toDateString()===today.toDateString())
+                                                                        { %>
+                                                                        <%= lastRecord.status %>
+                                                                            <% } else { %>
+                                                                                لا يوجد تسجيل
+                                                                                <% } %>
+                                                                                    <% } %>
+                                                </td </tr>
+                                                <% }) %>
+                                    </tbody>
+                                </table>
+                            </section>
+                            <% } %>
+            </section>
+        </main>
+        <!-- Main -->
+
+        <script src="/js/all.js"></script>
+</body>
+
+</html>

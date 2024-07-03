@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة طالب</title>
+    <!-- Css -->
+    <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="/style/all.css">
+</head>
+
+<body>
+    <!-- SideBar -->
+    <%- include('../views/Components/sidebar.ejs') %>
+    <!-- SideBar -->
+
+    <!-- main -->
+    <main>
+        <!-- header -->
+        <header class="header">
+            <img src="images/logo.jpg" alt="">
+        </header>
+        <!-- header -->
+
+        <!-- navbar -->
+        <nav>
+            <h3>مدارس المعالي الإبداعية الأهلية</h3>
+        </nav>
+        <!-- navbar -->
+
+        <!-- Add Studetn -->
+        <section class="add">
+            <section class="section-header">
+                <h2>بيانات الطالب</h2>
+            </section>
+            <section class="container">
+
+
+                <form action="/pages/add.html" method="post">
+                    <section class="input-section">
+                        <label for="inputName" class="form-label">الاسم</label>
+                        <input placeholder="الاسم" type="text" class="form-control" id="inputName" name="fullName" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="nationality" class="form-label">الجنسية</label>
+                        <select id="nationality" class="form-control" onchange="nationalityChange()">
+                            <option value="" selected>اختر...</option>
+                            <option value="سعودي">سعودي</option>
+                            <option value="أخري">أخري</option>
+                        </select>
+                        <br>
+                        <input placeholder="الجنسية" type="text" name="nationality" class="form-control"
+                            id="nationalityInput" style="display: none;" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputtele" class="form-label">رقم الهاتف</label>
+                        <input placeholder="رقم الهاتف" name="tele" type="number" class="form-control" id="inputtele" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputCountry" class="form-label">
+                            العنوان
+                        </label>
+                        <input placeholder="العنوان" type="text" name="Country" class="form-control"
+                            id="inputCountry" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputemail" class="form-label">ايميل ولي الأمر</label>
+                        <input placeholder="ايميل ولي الأمر" type="email" name="email" class="form-control"
+                            id="inputemail" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputemail" class="form-label">ايميل الطالب علي منصة مدرستي</label>
+                        <input placeholder="ايميل الطالب علي منصة مدرستي" name="emailStudent" type="email"
+                            class="form-control" id="inputemail" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="Semester" class="form-label">الصف الدراسي الحالي</label>
+                        <select name="Semester" id="Semester" class="form-control" name="Semester">
+                            <option value="" selected>اختر...</option>
+                            <option value="الأول الابتدائي">الأول الابتدائي</option>
+                            <option value="الثاني الابتدائي">الثاني الابتدائي</option>
+                            <option value="الثالث الابتدائي">الثالث الابتدائي</option>
+                            <option value="الرابع الابتدائي">الرابع الابتدائي</option>
+                            <option value="الخامس الابتدائي">الخامس الابتدائي</option>
+                            <option value="السادس الابتدائي">السادس الابتدائي</option>
+                            <option value="الأول المتوسط">الأول المتوسط</option>
+                            <option value="الثاني المتوسط">الثاني المتوسط</option>
+                            <option value="الثالث المتوسط">الثالث المتوسط</option>
+                            <option value="الأول الثانوي">الأول الثانوي</option>
+                            <option value="الثاني الثانوي">الثاني الثانوي</option>
+                            <option value="الثالث الثانوي">الثالث الثانوي</option>
+                        </select>
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="job4" class="form-label">وظيفة ولي الأمر</label>
+                        <input placeholder="وظيفة ولي الأمر" type="text" name="job" class="form-control" id="job4" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="transport" class="form-label">وسيلة الانتقال</label>
+                        <select class="form-control" id="transport" name="transport">
+                            <option value="" selected>اختر...</option>
+                            <option value="باص المدارس">باص المدارس</option>
+                            <option value="خاص">خاص</option>
+                        </select>
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="healthy" class="form-label">هل الطالب يعاني من ظروف صحية خاصة ؟</label>
+                        <select id="healthy" class="form-control" onchange="healthyChange()">
+                            <option value="" selected>اختر...</option>
+                            <option value="لا">لا</option>
+                            <option value="نعم">نعم</option>
+                        </select>
+                        <br>
+                        <input placeholder="ماهي الظروف الصحية الخاصة" type="text" class="form-control"
+                            id="healthyInput" name="healthy" style="display: none;" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="col-12">
+                        <button type="submit" class="btn">حفظ <i class="fa-solid fa-cloud-arrow-up"></i></button>
+                    </section>
+                </form>
+            </section>
+        </section>
+        <!-- Add Studetn -->
+    </main>
+    <!-- main -->
+
+
+    <script src="/js/scribt.js"></script>
+    <script src="/js/all.js"></script>
+</body>
+
+</html>

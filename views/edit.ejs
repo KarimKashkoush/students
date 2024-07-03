@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/all.css">
+    <link rel="stylesheet" href="/style/main.css">
+</head>
+
+<body>
+    <!-- SideBar -->
+    <%- include('../views/Components/sidebar.ejs') %>
+    <!-- SideBar -->
+
+    <main>
+        <!-- header -->
+        <header class="header">
+            <img src="../puplic/images/logo.jpg" alt="">
+        </header>
+        <!-- header -->
+
+        <!-- navbar -->
+        <nav>
+            <h3>مدارس المعالي الإبداعية الأهلية</h3>
+        </nav>
+        <!-- navbar -->
+
+        <!-- edit -->
+        <section class="edit">
+            <section class="section-header">
+                <h2>تعديل بيانات الطالب</h2>
+            </section>
+
+            <section class="container">
+                <form action="/pages/edit.html/<%= obj._id %>?_method=PUT" method="post">
+                    <section class="input-section">
+                        <label for="inputName" class="form-label">الاسم</label>
+                        <input value="<%= obj.fullName %>" placeholder="الاسم" type="text" class="form-control" id="inputName" name="fullName" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputtele" class="form-label">رقم الهاتف</label>
+                        <input value="<%= obj.tele %>" placeholder="رقم الهاتف" name="tele" type="number" class="form-control" id="inputtele" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputCountry" class="form-label">
+                            العنوان
+                        </label>
+                        <input value="<%= obj.Country %>" placeholder="العنوان" type="text" name="Country" class="form-control"
+                            id="inputCountry" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputemail" class="form-label">ايميل ولي الأمر</label>
+                        <input value="<%= obj.email %>" placeholder="ايميل ولي الأمر" type="email" name="email" class="form-control"
+                            id="inputemail" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="inputemail" class="form-label">ايميل الطالب علي منصة مدرستي</label>
+                        <input value="<%= obj.emailStudent %>" placeholder="ايميل الطالب علي منصة مدرستي" name="emailStudent" type="email"
+                            class="form-control" id="inputemail" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="job4" class="form-label">وظيفة ولي الأمر</label>
+                        <input value="<%= obj.job %>" placeholder="وظيفة ولي الأمر" type="text" name="job" class="form-control" id="job4" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="input-section">
+                        <label for="healthy" class="form-label">هل الطالب يعاني من ظروف صحية خاصة ؟</label>
+                        <select id="healthy" class="form-control" onchange="healthyChange()">
+                            <option value="" selected>اختر...</option>
+                            <option value="لا">لا</option>
+                            <option value="نعم">نعم</option>
+                        </select>
+                        <br>
+                        <input value="<%= obj.healthy %>" placeholder="ماهي الظروف الصحية الخاصة" type="text" class="form-control"
+                            id="healthyInput" name="healthy" style="display: none;" />
+                        <span class="error"></span>
+                    </section>
+
+                    <section class="col-12">
+                        <button type="submit" class="btn">حفظ التعديلات <i
+                                class="fa-solid fa-cloud-arrow-up"></i></button>
+                    </section>
+                </form>
+            </section>
+        </section>
+        <!-- edit -->
+    </main>
+
+
+    <script src="/js/all.js"></script>
+    <script src="/js/scribt.js"></script>
+</body>
+
+</html>

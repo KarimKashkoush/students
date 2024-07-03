@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية</title>
+    <!-- Css -->
+    <link rel="stylesheet" href="style/all.css">
+    <link rel="stylesheet" href="style/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ar.min.js"></script>
+
+
+</head>
+
+<body>
+    <%- include('../views/Components/sidebar.ejs') %>
+
+        <main>
+            <!-- header -->
+            <header class="header">
+                <img src="images/logo.jpg" alt="">
+            </header>
+            <!-- header -->
+
+            <!-- navbar -->
+            <nav>
+                <h3>مدارس المعالي الإبداعية الأهلية</h3>
+            </nav>
+            <!-- navbar -->
+
+            <!-- home -->
+            <section class="home">
+                <section class="container">
+
+                    <!-- time -->
+                    <section class="date">
+                        <section class="time">
+                            <span id="time"></span>
+                        </section>
+                        <section class="day">
+                            <span id="day"></span>
+                        </section>
+                        <section class="datehijri">
+                            <span id="dateH"></span>
+                        </section>
+                        <section class="datem">
+                            <span id="dateM"></span>
+                        </section>
+                    </section>
+                    <!-- time -->
+
+                    <!-- Class statistics -->
+                    <section class="class-statistics">
+                        <section class="boxs">
+                            <section class="box">
+                                <% if (arr.length> 0) { %>
+                                    <% arr.forEach((element, index)=> { %>
+                                        <% if (index===arr.length - 1) { %>
+                                            <h2>
+                                                <%= index + 1 %>
+                                            </h2>
+                                            <% } %>
+                                                <% }) %>
+                                                    <% } %>
+
+                                                        <% if (arr.length <=0) { %>
+                                                            <h2>0</h2>
+                                                            <% } %>
+                                                                <p>طالب</p>
+                            </section>
+
+                            <section class="box">
+                                <% let presentCount=0; %>
+                                    <% let absentCount=0; %>
+                                        <% arr.forEach(element=> { %>
+                                            <% element.attendanceRecords.forEach(record=> { %>
+                                                <% const currentDate=moment().format('YYYY-MM-DD'); %>
+                                                    <% const recordDate=moment(record.date).format('YYYY-MM-DD'); %>
+                                                        <% if (recordDate===currentDate) { %>
+                                                            <% if (record.status==='حاضر' ) { %>
+                                                                <% presentCount++; %>
+                                                                    <% } else if (record.status==='غائب' ) { %>
+                                                                        <% absentCount++; %>
+                                                                            <% } %>
+                                                                                <% } %>
+                                                                                    <% }); %>
+                                                                                        <% }); %>
+                                                                                            <h2>
+                                                                                                <%= presentCount %>
+                                                                                            </h2>
+                                                                                            <p>حاضر</p>
+                            </section>
+
+
+                            <section class="box">
+                                <h2>
+                                    <%= absentCount %>
+                                </h2>
+                                <p>غائب</p>
+                            </section>
+                        </section>
+                    </section>
+                    <!-- Class statistics -->
+                </section>
+            </section>
+            <!-- home -->
+        </main>
+
+        <!-- Js -->
+        <script src="js/all.js"></script>
+        <script src="js/scribt.js"></script>
+        <script>
+            function updateTime() {
+                const timeElement = document.getElementById('time');
+                const currentTime = moment().format('hh : mm : ss A');
+                const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
+                timeElement.innerText = arabicTime;
+
+                const arabicDateElement = document.getElementById('dateM');
+                const currentDate = moment().format('YYYY / MM / DD');
+                const arabicDate = moment().locale('ar-sa').format('DD / MM / YYYY');
+                arabicDateElement.innerText = arabicDate;
+
+                const dayElement = document.getElementById('day');
+                dayElement.innerText = moment().format('dddd');
+            }
+
+            setInterval(updateTime, 1000);
+            updateTime();
+        </script>
+</body>
+
+</html>
