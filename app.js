@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const Mydata = require('./models/myData');
 
+
 // Connect to MongoDB
 mongoose.connect("mongodb+srv://studentsName:6BJSOredO4wouN9v@cluster0.g0ywcmy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
     useNewUrlParser: true,
