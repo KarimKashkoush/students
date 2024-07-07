@@ -11,158 +11,295 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ar.min.js"></script>
 
+    <style>
+        @media print {
+            main {
+                margin: 0;
+                width: 100%;
+            }
 
+            .sidebar,
+            .date,
+            .class-statistics {
+                display: none;
+            }
+
+            .section-header h2 {
+                font-size: 22px;
+                color: #0075ff;
+            }
+
+            nav h3 {
+                text-align: center;
+                animation: none;
+            }
+
+            table tr th {
+                background-color: #0075ff;
+                color: #000;
+            }
+
+            table,
+            tr,
+            td,
+            th {
+                border: 1px solid #000;
+            }
+            
+            .list-table {
+                display: table;
+            }
+
+            .nwePage {
+                page-break-before: always;
+            }
+
+            .view .container table tr th {
+                color: #000;
+            }
+
+            th {
+                background-color: #fff;
+                color: #000;
+            }
+
+            
+            .print {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <!-- SideBar -->
-<section class="sidebar" id="sidebar">
-    <span class="open-close-sidebar" onclick="openCloseSidebar()">
-        <i class="fa-regular fa-circle-left" id="openIcon"></i>
-    </span>
+    <section class="sidebar" id="sidebar">
+        <span class="open-close-sidebar" onclick="openCloseSidebar()">
+            <i class="fa-regular fa-circle-left" id="openIcon"></i>
+        </span>
 
-    <section class="contact">
-        <ul>
-            <li>
-                <a href="/">
-                    <i class="fa-solid fa-house"></i>
-                    <span>الرئيسية</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pages/add.html">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <span>إضافة طالب</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pages/list.html">
-                    <i class="fa-solid fa-table-cells"></i>
-                    <span>القائمة</span>
-                </a>
-            </li>
-        </ul>
+        <section class="contact">
+            <ul>
+                <li>
+                    <a href="/">
+                        <i class="fa-solid fa-house"></i>
+                        <span>الرئيسية</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/add.html">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>إضافة طالب</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/list.html">
+                        <i class="fa-solid fa-table-cells"></i>
+                        <span>القائمة</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section class="personal">
+            <img src="" alt="">
+        </section>
     </section>
+    <!-- SideBar -->
 
-    <section class="personal">
-        <img src="" alt="">
-    </section>
-</section>
-<!-- SideBar -->
+    <main>
+        <!-- header -->
+        <header class="header">
+            <img src="images/logo.jpg" alt="">
+        </header>
+        <!-- header -->
 
-        <main>
-            <!-- header -->
-            <header class="header">
-                <img src="images/logo.jpg" alt="">
-            </header>
-            <!-- header -->
+        <!-- navbar -->
+        <nav>
+            <h3>مدارس المعالي الإبداعية الأهلية</h3>
+        </nav>
+        <!-- navbar -->
 
-            <!-- navbar -->
-            <nav>
-                <h3>مدارس المعالي الإبداعية الأهلية</h3>
-            </nav>
-            <!-- navbar -->
+        <!-- home -->
+        <section class="home">
+            <section class="container">
 
-            <!-- home -->
-            <section class="home">
-                <section class="container">
-
-                    <!-- time -->
-                    <section class="date">
-                        <section class="time">
-                            <span id="time"></span>
-                        </section>
-                        <section class="day">
-                            <span id="day"></span>
-                        </section>
-                        <section class="datehijri">
-                            <span id="dateH"><%= hijriDate().format('iD / iM / iYYYY') %></span>
-                        </section>
-                        <section class="datem">
-                            <span id="dateM"></span>
-                        </section>
+                <!-- time -->
+                <section class="date">
+                    <section class="time">
+                        <span id="time"></span>
                     </section>
-                    <!-- time -->
-
-                    <!-- Class statistics -->
-                    <section class="class-statistics">
-                        <section class="boxs">
-                            <section class="box">
-                                <% if (arr.length> 0) { %>
-                                    <% arr.forEach((element, index)=> { %>
-                                        <% if (index===arr.length - 1) { %>
-                                            <h2>
-                                                <%= index + 1 %>
-                                            </h2>
-                                            <% } %>
-                                                <% }) %>
-                                                    <% } %>
-
-                                                        <% if (arr.length <=0) { %>
-                                                            <h2>0</h2>
-                                                            <% } %>
-                                                                <p>طالب</p>
-                            </section>
-
-                            <section class="box">
-                                <% let presentCount=0; %>
-                                    <% let absentCount=0; %>
-                                        <% arr.forEach(element=> { %>
-                                            <% element.attendanceRecords.forEach(record=> { %>
-                                                <% const currentDate=moment().format('YYYY-MM-DD'); %>
-                                                    <% const recordDate=moment(record.date).format('YYYY-MM-DD'); %>
-                                                        <% if (recordDate===currentDate) { %>
-                                                            <% if (record.status==='حاضر' ) { %>
-                                                                <% presentCount++; %>
-                                                                    <% } else if (record.status==='غائب' ) { %>
-                                                                        <% absentCount++; %>
-                                                                            <% } %>
-                                                                                <% } %>
-                                                                                    <% }); %>
-                                                                                        <% }); %>
-                                                                                            <h2>
-                                                                                                <%= presentCount %>
-                                                                                            </h2>
-                                                                                            <p>حاضر</p>
-                            </section>
-
-
-                            <section class="box">
-                                <h2>
-                                    <%= absentCount %>
-                                </h2>
-                                <p>غائب</p>
-                            </section>
-                        </section>
+                    <section class="day">
+                        <span id="day"></span>
                     </section>
-                    <!-- Class statistics -->
+                    <section class="datehijri">
+                        <span id="dateH">
+                            <%= hijriDate().format('iD / iM / iYYYY') %>
+                        </span>
+                    </section>
+                    <section class="datem">
+                        <span id="dateM"></span>
+                    </section>
                 </section>
+                <!-- time -->
+
+                <!-- Class statistics -->
+                <section class="class-statistics">
+                    <section class="boxs">
+                        <section class="box">
+                            <% if (arr.length> 0) { %>
+                                <% arr.forEach((element, index)=> { %>
+                                    <% if (index===arr.length - 1) { %>
+                                        <h2>
+                                            <%= index + 1 %>
+                                        </h2>
+                                        <% } %>
+                                            <% }) %>
+                                                <% } %>
+
+                                                    <% if (arr.length <=0) { %>
+                                                        <h2>0</h2>
+                                                        <% } %>
+                                                            <p>طالب</p>
+                        </section>
+
+                        <section class="box">
+                            <% let presentCount=0; %>
+                                <% let absentCount=0; %>
+                                    <% arr.forEach(element=> { %>
+                                        <% element.attendanceRecords.forEach(record=> { %>
+                                            <% const currentDate=moment().format('YYYY-MM-DD'); %>
+                                                <% const recordDate=moment(record.date).format('YYYY-MM-DD'); %>
+                                                    <% if (recordDate===currentDate) { %>
+                                                        <% if (record.status==='حاضر' ) { %>
+                                                            <% presentCount++; %>
+                                                                <% } else if (record.status==='غائب' ) { %>
+                                                                    <% absentCount++; %>
+                                                                        <% } %>
+                                                                            <% } %>
+                                                                                <% }); %>
+                                                                                    <% }); %>
+                                                                                        <h2>
+                                                                                            <%= presentCount %>
+                                                                                        </h2>
+                                                                                        <p>حاضر</p>
+                        </section>
+
+
+                        <section class="box">
+                            <h2>
+                                <%= absentCount %>
+                            </h2>
+                            <p>غائب</p>
+                        </section>
+                    </section>
+                </section>
+                <!-- Class statistics -->
+
+                <table class="list-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>الوقت</th>
+                            <th>اليوم</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td id="dateTable">
+                            
+                        </td>
+                        <td id="timeTable">
+                            
+                        </td>
+                        <td id="dayTable">
+                            
+                        </td>
+                    </tr>
+                    <thead>
+                        <tr>
+                            <th>م</th>
+                            <th>الاسم</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% arr.forEach((element, index)=> { %>
+                            <tr>
+                                <td scope="row">
+                                    <%= index+1 %>
+                                </td>
+                                <td>
+                                    <%= element.fullName %>
+                                </td>
+
+                                <td>
+                                    <% if (element.attendanceRecords.length===0) { %>
+                                        لا يوجد تسجيل
+                                        <% } else { %>
+                                            <% const
+                                                lastRecord=element.attendanceRecords[element.attendanceRecords.length -
+                                                1]; %>
+                                                <% const today=new Date(); %>
+                                                    <% if (lastRecord.date.toDateString()===today.toDateString()) { %>
+                                                        <%= lastRecord.status %>
+                                                            <% } else { %>
+                                                                لا يوجد تسجيل
+                                                                <% } %>
+                                                                    <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    <tfoot>
+                        <tr>
+                            <th>نسبة الحضور</th>
+                            <td colspan="2">
+                                <%= arr.length %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>نسبة الغياب</th>
+                            <td colspan="2">
+                                <%= arr.length %>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    </tbody>
+                </table>
+                <button class="btn print" onclick="printPage()">طباعة تقرير اليوم</button>
             </section>
-            <!-- home -->
-        </main>
+        </section>
+        <!-- home -->
+    </main>
 
-        <!-- Js -->
-        <script src="js/all.js"></script>
-        <script src="js/scribt.js"></script>
-        <script>
-            function updateTime() {
-                const timeElement = document.getElementById('time');
-                const currentTime = moment().format('ss : mm : hh A');
-                const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
-                timeElement.innerText = arabicTime;
+    <!-- Js -->
+    <script src="js/all.js"></script>
+    <script src="js/scribt.js"></script>
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('time');
+            const timeTable = document.getElementById('timeTable');
+            const currentTime = moment().format('ss : mm : hh A');
+            const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
+            timeElement.innerText = arabicTime;
+            timeTable.innerText = arabicTime;
 
-                const arabicDateElement = document.getElementById('dateM');
-                const currentDate = moment().format('YYYY / MM / DD');
-                const arabicDate = moment().locale('ar-sa').format('DD / MM / YYYY');
-                arabicDateElement.innerText = arabicDate;
+            const arabicDateElement = document.getElementById('dateM');
+            const dateTable = document.getElementById('dateTable');
+            const currentDate = moment().format('YYYY / MM / DD');
+            const arabicDate = moment().locale('ar-sa').format('DD / MM / YYYY');
+            arabicDateElement.innerText = arabicDate;
+            dateTable.innerText = arabicDate;
 
-                const dayElement = document.getElementById('day');
-                dayElement.innerText = moment().format('dddd');
-            }
+            const dayElement = document.getElementById('day');
+            const dayTable = document.getElementById('dayTable');
+            dayElement.innerText = moment().format('dddd');
+            dayTable.innerText = moment().format('dddd');
+            
+        }
 
-            setInterval(updateTime, 1000);
-            updateTime();
-        </script>
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
 
 </html>

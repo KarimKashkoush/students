@@ -238,21 +238,19 @@
                         </tr>
 
                         <% object.notes.forEach(element=> { %>
-                            <% if (object.length> 0) { %>
-                                <tr>
-                                    <td>
-                                        (<%= moment(element.date).format('hh:mm:ss A') %>)
-                                            <%= moment(element.date).format('DD-MM-YYYY') %>
-                                    </td>
-                                    <td>
-                                        <%= element.behavior %>
-                                    </td>
-                                    <td>
-                                        <%= element.action %>
-                                    </td>
-                                </tr>
-                                <% } %>
-                                    <% }) %>
+                            <tr>
+                                <td>
+                                    (<%= moment(element.date).format('hh:mm:ss A') %>)
+                                        <%= moment(element.date).format('DD-MM-YYYY') %>
+                                </td>
+                                <td>
+                                    <%= element.behavior %>
+                                </td>
+                                <td>
+                                    <%= element.action %>
+                                </td>
+                            </tr>
+                            <% }) %>
                     </table>
 
                 </section>
@@ -278,7 +276,6 @@
                                 </td>
                             </tr>
                             <% }); %>
-
                     </table>
                 </section>
 
