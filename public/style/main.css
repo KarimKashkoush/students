@@ -439,7 +439,9 @@ form .form-control:focus {
     color: rgba(244, 67, 54, 0.9);
 }
 
-.list-table tr, td, th {
+.list-table tr, 
+.list-tabletd, 
+.list-table th {
     border: 1px solid #000;
 }
 
