@@ -11,8 +11,39 @@
 
 <body>
     <!-- SideBar -->
-    <%- include('../views/Components/sidebar.ejs') %>
-    <!-- SideBar -->
+<section class="sidebar" id="sidebar">
+    <span class="open-close-sidebar" onclick="openCloseSidebar()">
+        <i class="fa-regular fa-circle-left" id="openIcon"></i>
+    </span>
+
+    <section class="contact">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="fa-solid fa-house"></i>
+                    <span>الرئيسية</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pages/add.html">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>إضافة طالب</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pages/list.html">
+                    <i class="fa-solid fa-table-cells"></i>
+                    <span>القائمة</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="personal">
+        <img src="" alt="">
+    </section>
+</section>
+<!-- SideBar -->
 
     <main>
         <!-- header -->
