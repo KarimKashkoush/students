@@ -151,13 +151,15 @@
                             <tr>
                                 <td>تاريخ الإضافة</td>
                                 <td>
-                                    <%= moment(`${object.createdAt}`).format('llll');%>
+                                    <%= moment(`${object.createdAt}`).format('ll');%>
+                                    (<%= moment(`${object.createdAt}`).format('hh:mm:ss A');%>)
                                 </td>
                             </tr>
                             <tr>
                                 <td>تاريخ أخر تعديل</td>
                                 <td>
-                                    <%= moment(`${object.updatedAt}`).format('llll');%>
+                                    <%= moment(`${object.updatedAt}`).format('ll');%>
+                                    (<%= moment(`${object.updatedAt}`).format('hh:mm:ss A');%>)
                                 </td>
                             </tr>
                         </table>
@@ -194,6 +196,38 @@
 
                     <section class="table">
                         <h2 class="table-header nwePage">
+                            الظواهر السلوكية
+                        </h2>
+
+                        <table>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>الظاهرة السلوكية</th>
+                                <th>الإجراء المتبع</th>
+                            </tr>
+
+                            <% object.notes.forEach(element=> { %>
+                                <% if (object.length> 0) { %>
+                                    <tr>
+                                        <td>
+                                            (<%= moment(element.date).format('hh:mm:ss A') %>)
+                                                <%= moment(element.date).format('DD-MM-YYYY') %>
+                                        </td>
+                                        <td>
+                                            <%= element.behavior %>
+                                        </td>
+                                        <td>
+                                            <%= element.action %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% }) %>
+                        </table>
+
+                    </section>
+
+                    <section class="table">
+                        <h2 class="table-header nwePage">
                             حالة الطالب
                         </h2>
                         <table>
@@ -205,8 +239,8 @@
                             <% object.attendanceRecords.forEach(record=> { %>
                                 <tr>
                                     <td>
-                                        (<%= moment(record.date).format('LTS') %>)
-                                        <%= moment(record.date).format('DD-MM-YYYY') %>
+                                        (<%= moment(record.date).format('hh:mm:ss A') %>)
+                                            <%= moment(record.date).format('DD-MM-YYYY') %>
                                     </td>
                                     <td>
                                         <%= record.status %>
@@ -216,6 +250,8 @@
 
                         </table>
                     </section>
+
+
 
                     <section class="table">
                         <h2 class="table-header nwePage">

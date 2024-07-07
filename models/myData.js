@@ -2,6 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // define the Schema (the structure of the article)
+const notesSchema = new Schema({
+    behavior: String,
+    action: String,
+    date: {
+        type: Date,
+        default: Date.now
+    }
+}, { _id: false });
+
 const attendanceRecordSchema = new Schema({
     status: {
         type: String,
@@ -25,6 +34,7 @@ const articleSchema = new Schema({
     job: String,
     transport: String,
     healthy: String,
+    notes: [notesSchema],
     attendanceRecords: [attendanceRecordSchema]
 },
     { timestamps: true }

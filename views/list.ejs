@@ -47,7 +47,7 @@
                                         <tr>
                                             <th scope="col">م</th>
                                             <th scope="col">الاسم بالكامل</th>
-                                            <th scope="col">الحضور والغياب</th>
+                                            <th scope="col">الحضور الغياب والسلوكيات</th>
                                             <th scope="col">التعديلات</th>
                                             <th scope="col">الحاله</th>
                                         </tr>
@@ -73,7 +73,31 @@
                                                         method="POST" style="display:inline;">
                                                         <button class="absence" type="submit">غائب</button>
                                                     </form>
+
+
+                                                    <button class="open-modal"
+                                                        data-id="<%= element._id %>">الملاحظات</button>
+
+                                                    <div class="modal" id="modal-<%= element._id %>"
+                                                        style="display:none;">
+                                                        <div class="modal-content">
+                                                            <span class="close"
+                                                                data-id="<%= element._id %>">&times;</span>
+                                                            <form action="/pages/attendance/<%= element._id %>/notes"
+                                                                method="POST">
+                                                                <label for="behavior">السلوكيات:</label>
+                                                                <input type="text" id="behavior" name="behavior"
+                                                                    required>
+                                                                <label for="action">الإجراء المتبع:</label>
+                                                                <input type="text" id="action" name="action" required>
+                                                                <button type="submit" class="btn">إرسال</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </td>
+
+
+
                                                 <td class="edit-td">
                                                     <button>
                                                         <a class="view-btn" href="/pages/<%=element._id%>">
@@ -118,6 +142,28 @@
         </main>
         <!-- Main -->
 
+        <script>
+            document.querySelectorAll('.open-modal').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.getAttribute('data-id');
+                    document.getElementById('modal-' + id).style.display = 'block';
+                });
+            });
+
+            document.querySelectorAll('.close').forEach(span => {
+                span.addEventListener('click', () => {
+                    const id = span.getAttribute('data-id');
+                    document.getElementById('modal-' + id).style.display = 'none';
+                });
+            });
+
+            window.onclick = function (event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            }
+        </script>
+        <script src="/js/scribt.js"></script>
         <script src="/js/all.js"></script>
 </body>
 

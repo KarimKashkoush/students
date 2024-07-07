@@ -43,7 +43,7 @@
                             <span id="day"></span>
                         </section>
                         <section class="datehijri">
-                            <span id="dateH"></span>
+                            <span id="dateH"><%= hijriDate().format('iD / iM / iYYYY') %></span>
                         </section>
                         <section class="datem">
                             <span id="dateM"></span>
@@ -114,7 +114,7 @@
         <script>
             function updateTime() {
                 const timeElement = document.getElementById('time');
-                const currentTime = moment().format('hh : mm : ss A');
+                const currentTime = moment().format('ss : mm : hh A');
                 const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
                 timeElement.innerText = arabicTime;
 

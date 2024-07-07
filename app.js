@@ -4,6 +4,7 @@ const port = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const moment = require('moment');
 const methodOverride = require('method-override');
+const hijri = require('moment-hijri');
 
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
@@ -71,11 +72,28 @@ app.put('/pages/attendance/:id/absent', async (req, res) => {
     }
 });
 
+app.post('/pages/attendance/:id/notes', async (req, res) => {
+    try {
+        const student = await Mydata.findById(req.params.id);
+        if (student) {
+            student.notes.push({
+                behavior: req.body.behavior,
+                action: req.body.action
+            });
+            await student.save();
+        }
+        res.redirect('/pages/list.html');
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('An error occurred');
+    }
+});
+
 // Other routes (e.g., get, post, delete)
 
 app.get('/', (req, res) => {
     Mydata.find()
-        .then((result) => { res.render('index', { arr: result, moment: moment }); })
+        .then((result) => { res.render('index', { arr: result, moment: moment, hijriDate: hijri }); })
         .catch((err) => {
             console.log(err);
         });
