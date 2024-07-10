@@ -268,7 +268,7 @@
                                     <% let todayNotes=element.notes.filter(note=> new Date(note.date).toDateString() ===
                                         today);
                                         if (todayNotes.length === 0) { %>
-                                        #####
+                                            #####
                                         <% } else { %>
                                             <% todayNotes.forEach(note=> { %>
                                                 <%= note.behavior %>
