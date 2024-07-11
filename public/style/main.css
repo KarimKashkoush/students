@@ -565,3 +565,7 @@ form .form-control:focus {
     border: 1px solid var(--main-color);
     padding: 5px 10px;
 }
+
+.nav-hiden {
+    display: none;
+}

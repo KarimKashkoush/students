@@ -51,3 +51,28 @@ function healthyChange() {
 function printPage() {
     print();
 }
+
+
+
+function updateTime() {
+    const timeElement = document.getElementById('time');
+    const currentTime = moment().format('ss : mm : hh A');
+    const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
+    timeElement.innerText = arabicTime;
+
+    const arabicDateElement = document.getElementById('dateM');
+    const dateTable = document.getElementById('dateTableM');
+    const currentDate = moment().format('YYYY / MM / DD');
+    const arabicDate = moment().locale('ar-sa').format('DD / MM / YYYY');
+    arabicDateElement.innerText = arabicDate;
+    dateTable.innerText = arabicDate;
+
+    const dayElement = document.getElementById('day');
+    const dayTable = document.getElementById('dayTable');
+    dayElement.innerText = moment().format('dddd');
+    dayTable.innerText = moment().format('dddd');
+
+}
+
+setInterval(updateTime, 1000);
+updateTime();

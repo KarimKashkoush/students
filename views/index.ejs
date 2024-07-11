@@ -85,6 +85,9 @@
             .home .container {
                 gap: 5px;
             }
+            .nav-hiden {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -133,8 +136,9 @@
         <!-- header -->
 
         <!-- navbar -->
-        <nav>
-            <h3>مدارس المعالي الإبداعية الأهلية</h3>
+        <nav style="text-align: center;">
+            <h3>مدارس المعالي الإبداعية الابتدائية الأهلية</h3>
+            <h3 class="nav-hiden">فصل (___/___)</h3>
         </nav>
         <!-- navbar -->
 
@@ -215,92 +219,159 @@
                 <!-- Class statistics -->
 
                 <table class="list-table">
-                    <% let totalRecords=0; let presentCountToday=0; let absentCountToday=0; const today=new
-                        Date().toDateString(); %>
-                        <tr>
-                            <th>التاريخ الميلادي</th>
-                            <th>التاريخ الهجري</th>
-                            <th>اليوم</th>
-                            <th>الوقت</th>
-                        </tr>
-                        <tr>
-                            <td id="dateTableM"></td>
-                            <td id="dateTableH">
-                                <%= hijriDate().format('iD / iM / iYYYY') %>
-                            </td>
-                            <td id="dayTable"></td>
-                            <td id="timeTable"></td>
-                        </tr>
+                    <tr>
+                        <th>التاريخ الميلادي</th>
+                        <th>التاريخ الهجري</th>
+                        <th>اليوم</th>
+                    </tr>
+                    <tr>
+                        <td id="dateTableM">
 
-                        <tr>
-                            <th>م</th>
-                            <th>الاسم</th>
-                            <th>الحالة</th>
-                            <th>الظواهر السلوكية</th>
-                        </tr>
+                        </td>
+                        <td>
+                            <%= hijriDate().format('iD / iM / iYYYY') %>
+                        </td>
+                        <td id="dayTable">
 
-                        <% arr.forEach((element, index)=> { %>
-                            <tr>
-                                <td scope="row">
-                                    <%= index + 1 %>
-                                </td>
-                                <td>
-                                    <%= element.fullName %>
-                                </td>
-                                <td>
-                                    <% if (element.attendanceRecords.length===0) { %>
-                                        لا يوجد تسجيل
-                                        <% } else { %>
-                                            <% const
-                                                lastRecord=element.attendanceRecords[element.attendanceRecords.length
-                                                -1]; %>
-                                                <% if (new Date(lastRecord.date).toDateString()===today) { %>
-                                                    <%= lastRecord.status %>
-                                                        <% if (lastRecord.status==='حاضر' ) { presentCountToday++; }
-                                                            else if (lastRecord.status==='غائب' ) { absentCountToday++;
-                                                            } totalRecords++; %>
-                                                            <% } else { %>
-                                                                لا يوجد تسجيل
-                                                                <% } %>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="list-table">
+                    <tr>
+                        <th>نسبة الغياب</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% const totalRecords=arr.length; %>
+                                <% const absentCountToday=arr.reduce((count, element)=> { %>
+                                    <% const lastRecord=element.attendanceRecords[element.attendanceRecords.length - 1];
+                                        %>
+                                        <% if (lastRecord && moment(lastRecord.date).isSame(moment(), 'day' ) &&
+                                            lastRecord.status==='غائب' ) { %>
+                                            <% return count + 1; %>
+                                                <% } %>
+                                                    <% return count; %>
+                                                        <% }, 0); %>
+                                                            <% const absencePercentage=totalRecords> 0 ?
+                                                                (absentCountToday /
+                                                                totalRecords) * 100 : 0; %>
+                                                                <%= absencePercentage.toFixed(1) %> %
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="list-table">
+                    <tr>
+                        <th>م</th>
+                        <th>الاسم</th>
+                        <th>الحالة</th>
+                        <th>الظواهر السلوكية</th>
+                    </tr>
+                    <% arr.filter(element=> { %>
+
+                        <% const lastRecord=element.attendanceRecords[element.attendanceRecords.length - 1]; %>
+                            <% return lastRecord && moment(lastRecord.date).isSame(moment(), 'day' ) &&
+                                lastRecord.status==='غائب' ; %>
+                                <% }).forEach((element, index)=> { %>
+                                    <tr>
+                                        <td scope="row">
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= element.fullName %>
+                                        </td>
+                                        <td>
+                                            <%= element.attendanceRecords[element.attendanceRecords.length - 1].status
+                                                %>
+                                        </td>
+                                        <td>
+                                            <% const todayNotes=element.notes.filter(note=>
+                                                moment(note.date).isSame(moment(), 'day')); %>
+                                                <% if (todayNotes.length===0) { %>
+                                                    #####
+                                                    <% } else { %>
+                                                        <% todayNotes.forEach(note=> { %>
+                                                            <%= note.behavior %>
+                                                                <% }) %>
                                                                     <% } %>
-                                </td>
-                                <td>
-                                    <% let todayNotes=element.notes.filter(note=> new Date(note.date).toDateString() ===
-                                        today);
-                                        if (todayNotes.length === 0) { %>
-                                            #####
-                                        <% } else { %>
-                                            <% todayNotes.forEach(note=> { %>
-                                                <%= note.behavior %>
-                                                    <% }) %>
-                                                        <% } %>
-                                </td>
-                            </tr>
-                            <% }) %>
-
-                                <% const attendancePercentage=totalRecords> 0 ? (presentCountToday /
-                                    totalRecords) * 100
-                                    : 0;
-                                    const absencePercentage = totalRecords > 0 ? (absentCountToday /
-                                    totalRecords) * 100
-                                    : 0;
-                                    %>
-
-
-                                    <tr>
-                                        <th colspan="2">نسبةالحضور</th>
-                                        <th colspan="2">نسبة الغياب</th>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td colspan="2">
-                                            <%= attendancePercentage.toFixed(1) %> %
-                                        </td>
-                                        <td colspan="2">
-                                            <%= absencePercentage.toFixed(1) %> %
                                         </td>
                                     </tr>
+                                    <% }) %>
+                </table>
+
+                <table class="list-table">
+                    <tr>
+                        <th>نسبة الحضور</th>
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <% const presentCountToday=arr.reduce((count, element)=> { %>
+                                <% const lastRecord=element.attendanceRecords[element.attendanceRecords.length - 1]; %>
+                                    <% if (lastRecord && moment(lastRecord.date).isSame(moment(), 'day' ) &&
+                                        lastRecord.status==='حاضر' ) { %>
+                                        <% return count + 1; %>
+                                            <% } %>
+                                                <% return count; %>
+                                                    <% }, 0); %>
+                                                        <% const attendancePercentage=totalRecords> 0 ?
+                                                            (presentCountToday /
+                                                            totalRecords) * 100 : 0; %>
+                                                            <%= attendancePercentage.toFixed(1) %> %
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="list-table">
+                    <tr>
+                        <th>م</th>
+                        <th>الاسم</th>
+                        <th>الحالة</th>
+                        <th>الظواهر السلوكية</th>
+                    </tr>
+                    <% arr.filter(element=> { %>
+                        <% const lastRecord=element.attendanceRecords[element.attendanceRecords.length - 1]; %>
+                            <% return lastRecord && moment(lastRecord.date).isSame(moment(), 'day' ) &&
+                                lastRecord.status==='حاضر' ; %>
+                                <% }).forEach((element, index)=> { %>
+                                    <tr>
+                                        <td scope="row">
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= element.fullName %>
+                                        </td>
+                                        <td>
+                                            <%= element.attendanceRecords[element.attendanceRecords.length - 1].status
+                                                %>
+                                        </td>
+                                        <td>
+                                            <% const todayNotes=element.notes.filter(note=>
+                                                moment(note.date).isSame(moment(), 'day')); %>
+                                                <% if (todayNotes.length===0) { %>
+                                                    #####
+                                                    <% } else { %>
+                                                        <% todayNotes.forEach(note=> { %>
+                                                            <%= note.behavior %>
+                                                                <% }) %>
+                                                                    <% } %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                </table>
+
+                <table class="list-table">
+                    <tr>
+                        <th>معلم الصف</th>
+                        <th>المرشد الطلابي</th>
+                        <th>مدير المدرسة</th>
+                    </tr>
+                    <tr>
+                        <td style="height: 30px;"></td>
+                        <td style="height: 30px;"></td>
+                        <td style="height: 30px;"></td>
+                    </tr>
                 </table>
                 <button class="btn print" onclick="printPage()">طباعة تقرير اليوم</button>
             </section>
@@ -308,35 +379,8 @@
         <!-- home -->
     </main>
 
-    <!-- Js -->
     <script src="js/all.js"></script>
     <script src="js/scribt.js"></script>
-    <script>
-        function updateTime() {
-            const timeElement = document.getElementById('time');
-            const timeTable = document.getElementById('timeTable');
-            const currentTime = moment().format('ss : mm : hh A');
-            const arabicTime = currentTime.replace('AM', 'ص').replace('PM', 'م');
-            timeElement.innerText = arabicTime;
-            timeTable.innerText = arabicTime;
-
-            const arabicDateElement = document.getElementById('dateM');
-            const dateTable = document.getElementById('dateTableM');
-            const currentDate = moment().format('YYYY / MM / DD');
-            const arabicDate = moment().locale('ar-sa').format('DD / MM / YYYY');
-            arabicDateElement.innerText = arabicDate;
-            dateTable.innerText = arabicDate;
-
-            const dayElement = document.getElementById('day');
-            const dayTable = document.getElementById('dayTable');
-            dayElement.innerText = moment().format('dddd');
-            dayTable.innerText = moment().format('dddd');
-
-        }
-
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
 </body>
 
 </html>
