@@ -74,6 +74,8 @@ router.post('/pages/attendance/:id/notes', async (req, res) => {
 
 router.get('/', userController.index)
 
+router.get('/pages/skills.html', userController.skills)
+
 router.get('/pages/add.html', userController.add);
 
 router.post('/pages/add.html', userController.addMongo);
