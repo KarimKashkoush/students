@@ -97,12 +97,13 @@
                                                     style="display:none;">
                                                     <div class="skills-content">
                                                         <span class="close" data-id="<%= element._id %>">&times;</span>
-                                                        <form onchange="skillsForm()"
+                                                        <form class="skillForms"
                                                             action="/pages/skills/<%= element._id %>/skill"
-                                                            method="POST">
+                                                            method="POST"
+                                                            >
 
                                                             <label for="semester">الفترة:</label>
-                                                            <select name="semester" id="semester" required>
+                                                            <select name="semester" id="semester" class="semester" required>
                                                                 <option value="" selected>اختر...</option>
                                                                 <option value="الأول">الأول</option>
                                                                 <option value="الثاني">الثاني</option>
@@ -110,7 +111,7 @@
                                                             </select>
 
                                                             <label for="subject">المادة:</label>
-                                                            <select name="subject" id="subject" required>
+                                                            <select name="subject" id="subject" class="subject" required>
                                                                 <option value="" selected>اختر...</option>
                                                                 <option value="لغتي">لغتي</option>
 
@@ -126,12 +127,12 @@
                                                             </select>
 
                                                             <label for="skill">المهارة:</label>
-                                                            <select name="skill" id="skill" required>
-                                                                <option value="" selected>اختر...</option>
+                                                            <select name="skill" id="skill" class="skill" required>
+                                                                <option value="">اختر...</option>
                                                             </select>
 
                                                             <label for="evaluation">التقيم:</label>
-                                                            <select name="evaluation" id="evaluation" required>
+                                                            <select name="evaluation" id="evaluation" class="evaluation" required>
                                                                 <option value="" selected>اختر...</option>
                                                                 <option value="غير محدد">غير محدد</option>
                                                                 <option value="غائب">غائب</option>

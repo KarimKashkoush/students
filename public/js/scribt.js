@@ -370,171 +370,68 @@ const skills = {
     }
 }
 
-function skillsForm() {
-    let semester = document.getElementById("semester");
-    let subject = document.getElementById("subject");
-    let skill = document.getElementById("skill");
-    skill.innerHTML = '';
 
-    if (semester.value === "الأول" && subject.value === "لغتي") {
-        skills.arbicLanguage.firstPeriod.forEach(element => {
+let skillForms = document.querySelectorAll(".skillForms");
+
+skillForms.forEach((form) => {
+    form.addEventListener('change', (event) => {
+        const semester = form.querySelector("#semester");
+        const subject = form.querySelector("#subject");
+        const skill = form.querySelector("#skill");
+
+
+        // إضافة الخيارات الجديدة بناءً على القيم المختارة
+        let options = [];
+
+        if (semester.value === "الأول" && subject.value === "لغتي") {
+            options = skills.arbicLanguage.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "لغتي") {
+            options = skills.arbicLanguage.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "لغتي") {
+            options = skills.arbicLanguage.thirdPeriod;
+        } else if (semester.value === "الأول" && subject.value === "الفقه") {
+            options = skills.jurisprudence.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "الفقه") {
+            options = skills.jurisprudence.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "الفقه") {
+            options = skills.jurisprudence.thirdPeriod;
+        } else if (semester.value === "الأول" && subject.value === "التوحيد") {
+            options = skills.monotheism.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "التوحيد") {
+            options = skills.monotheism.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "التوحيد") {
+            options = skills.monotheism.thirdPeriod;
+        } else if (semester.value === "الأول" && subject.value === "القرآن") {
+            options = skills.quran.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "القرآن") {
+            options = skills.quran.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "القرآن") {
+            options = skills.quran.thirdPeriod;
+        } else if (semester.value === "الأول" && subject.value === "الرياضيات") {
+            options = skills.math.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "الرياضيات") {
+            options = skills.math.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "الرياضيات") {
+            options = skills.math.thirdPeriod;
+        } else if (semester.value === "الأول" && subject.value === "المهارات الحيايتة والأسارية") {
+            options = skills.lifeSkills.firstPeriod;
+        } else if (semester.value === "الثاني" && subject.value === "المهارات الحيايتة والأسارية") {
+            options = skills.lifeSkills.secondPeriod;
+        } else if (semester.value === "الثالث" && subject.value === "المهارات الحيايتة والأسارية") {
+            options = skills.lifeSkills.thirdPeriod;
+        }
+
+        // إضافة الخيارات الجديدة
+        options.forEach(element => {
             const option = document.createElement('option');
             option.value = element;
             option.textContent = element;
             skill.appendChild(option);
         });
-    }
 
-    if (semester.value === "الثاني" && subject.value === "لغتي") {
-        skills.arbicLanguage.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "لغتي") {
-        skills.arbicLanguage.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الأول" && subject.value === "الفقه") {
-        skills.jurisprudence.firstPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثاني" && subject.value === "الفقه") {
-        skills.jurisprudence.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "الفقه") {
-        skills.jurisprudence.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الأول" && subject.value === "التوحيد") {
-        skills.monotheism.firstPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثاني" && subject.value === "التوحيد") {
-        skills.monotheism.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "التوحيد") {
-        skills.monotheism.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الأول" && subject.value === "القرآن") {
-        skills.quran.firstPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثاني" && subject.value === "القرآن") {
-        skills.quran.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "القرآن") {
-        skills.quran.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الأول" && subject.value === "الرياضيات") {
-        skills.math.firstPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثاني" && subject.value === "الرياضيات") {
-        skills.math.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "الرياضيات") {
-        skills.math.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الأول" && subject.value === "المهارات الحيايتة والأسارية") {
-        skills.lifeSkills.firstPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثاني" && subject.value === "المهارات الحيايتة والأسارية") {
-        skills.lifeSkills.secondPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-
-    if (semester.value === "الثالث" && subject.value === "المهارات الحيايتة والأسارية") {
-        skills.lifeSkills.thirdPeriod.forEach(element => {
-            const option = document.createElement('option');
-            option.value = element;
-            option.textContent = element;
-            skill.appendChild(option);
-        });
-    }
-}
+        // تحديث الخيار الافتراضي إذا كانت القائمة فارغة
+        if (skill.options.length === 1) {
+            skill.innerHTML = '<option value="" selected>اختر...</option>';
+        }
+    });
+});

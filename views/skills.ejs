@@ -13,6 +13,64 @@
     <style>
         table {
             margin-bottom: 10px;
+            border: 1px solid #0075ff;
+            table-layout: fixed;
+        }
+
+        .list .container {
+            border-bottom: 3px solid #0075ff;
+        }
+
+        tr td {
+            border: 1px solid #0075ff;
+        }
+    </style>
+    <style>
+        @media print {
+            main {
+                margin: 0;
+                width: 100%;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .section-header h2 {
+                font-size: 22px;
+                color: #0075ff;
+            }
+
+            nav h3 {
+                text-align: center;
+                animation: none;
+            }
+
+            .list .container table tr th,
+            .list-table tr th,
+            .list-table tfoot th {
+                color: #0075ff;
+            }
+
+            .nwePage {
+                page-break-before: always;
+            }
+
+            .view .container table tr th {
+                color: #0075ff;
+            }
+
+            .Administration {
+                display: flex;
+            }
+
+            .print {
+                display: none;
+            }
+
+            .nav-hiden {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -29,45 +87,213 @@
                 <!-- header -->
 
                 <!-- navbar -->
-                <%- include('./components/navBar.ejs') %>
-                    <!-- navbar -->
+                <nav style="text-align: center;">
+                    <h3>مدارس المعالي الإبداعية الابتدائية الأهلية</h3>
+                    <h3 class="nav-hiden">فصل (أ /أولي)</h3>
+                    <h3 class="nav-hiden">المعلم / محمد رضا</h3>
+                    <h3 class="nav-hiden">العام الدراسي / 45-46هـ - الفترة الأولي</h3>
+                </nav>
+                <!-- navbar -->
 
-                    <section class="list">
-                        <section class="container">
-                            <% arr.forEach((student, index)=> { %>
-                                <table>
-                                    <tr>
-                                        <th>الاسم</th>
-                                        <td>
-                                            <%= student.fullName %>
-                                        </td>
-                                    </tr>
-                                    <% (student.skill).forEach(element=> { %>
+                <section class="list">
+                    <section class="container ">
+                        <section class="section-header">
+                            <h2>مهارات لغتي</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='لغتي' ) { %>
                                         <tr>
-                                            <th>المادة</th>
-                                            <td>
-                                                <%= element.subject %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>المهارة</th>
                                             <td>
                                                 <%= element.skill %>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>التقيم</th>
                                             <td>
                                                 <%= element.evaluation %>
                                             </td>
                                         </tr>
-                                        <% }) %>
-                                </table>
-                                <% }) %>
-                        </section>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
                     </section>
-        </main>
 
+                    <section class="container nwePage">
+                        <section class="section-header">
+                            <h2>مهارات القرآن</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='القرآن' ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
+                    </section>
+
+                    <section class="container nwePage">
+                        <section class="section-header">
+                            <h2>مهارات الفقه</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='الفقه' ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
+                    </section>
+
+                    <section class="container nwePage">
+                        <section class="section-header">
+                            <h2>مهارات التوحيد</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='التوحيد' ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
+                    </section>
+
+                    <section class="container nwePage">
+                        <section class="section-header">
+                            <h2>مهارات الحياتية والأسرية</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='المهارات الحيايتة والأسارية' ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
+                    </section>
+
+                    <section class="container nwePage">
+                        <section class="section-header">
+                            <h2>مهارات الرياضيات</h2>
+                        </section>
+                        <% arr.forEach((student, index)=> { %>
+                            <table>
+                                <tr style="border: 1px solid #0075ff;">
+                                    <th style="border: 1px solid #0075ff;">اسم الطالب</th>
+                                    <td>
+                                        <%= student.fullName %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>اسم المهارة</th>
+                                    <th>التقييم</th>
+
+                                </tr>
+                                <% student.skill.forEach(element=> { %>
+                                    <% if (element.subject==='الرياضيات' ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% }) %>
+                            </table>
+                            <% }) %>
+                    </section>
+                </section>
+        </main>
 </body>
 </section>
 </section>
