@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهارات</title>
+
+    <!-- CSs  -->
+    <link rel="stylesheet" href="/style/main.css">
+    <link rel="stylesheet" href="/style/all.css">
+
+    <style>
+        table {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SideBar -->
+    <%- include('./components/sidebar.ejs') %>
+        <!-- SideBar -->
+
+        <!-- Main -->
+        <main>
+            <!-- header -->
+            <%- include('./components/header') %>
+                <!-- header -->
+
+                <!-- navbar -->
+                <%- include('./components/navBar.ejs') %>
+                    <!-- navbar -->
+
+                    <section class="list">
+                        <section class="container">
+                            <% arr.forEach((student, index)=> { %>
+                                <table>
+                                    <tr>
+                                        <th>الاسم</th>
+                                        <td>
+                                            <%= student.fullName %>
+                                        </td>
+                                    </tr>
+                                    <% (student.skill).forEach(element=> { %>
+                                        <tr>
+                                            <th>المادة</th>
+                                            <td>
+                                                <%= element.subject %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>المهارة</th>
+                                            <td>
+                                                <%= element.skill %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>التقيم</th>
+                                            <td>
+                                                <%= element.evaluation %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </table>
+                                <% }) %>
+                        </section>
+                    </section>
+        </main>
+
+</body>
+</section>
+</section>
+</main>
+<!-- Main -->
+
+
+<script src="/js/scribt.js"></script>
+<script src="/js/all.js"></script>
+</body>
+
+</html>

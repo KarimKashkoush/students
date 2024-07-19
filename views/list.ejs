@@ -13,189 +13,254 @@
 
 <body>
     <!-- SideBar -->
-<section class="sidebar" id="sidebar">
-    <span class="open-close-sidebar" onclick="openCloseSidebar()">
-        <i class="fa-regular fa-circle-left" id="openIcon"></i>
-    </span>
+    <%- include('./components/sidebar.ejs') %>
+    <!-- SideBar -->
 
-    <section class="contact">
-        <ul>
-            <li>
-                <a href="/">
-                    <i class="fa-solid fa-house"></i>
-                    <span>الرئيسية</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pages/add.html">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <span>إضافة طالب</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pages/list.html">
-                    <i class="fa-solid fa-table-cells"></i>
-                    <span>القائمة</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <!-- Main -->
+    <main>
+        <!-- header -->
+        <%- include('./components/header') %>
+        <!-- header -->
 
-    <section class="personal">
-        <img src="" alt="">
-    </section>
-</section>
-<!-- SideBar -->
+        <!-- navbar -->
+        <%- include('./components/navBar.ejs') %>
+        <!-- navbar -->
 
-        <!-- Main -->
-        <main>
-            <!-- header -->
-            <header class="header">
-                <img src="/images/logo.jpg" alt="">
-            </header>
-            <!-- header -->
+        <section class="list">
+            <section class="section-header">
+                <h2>قائمة طلاب الفصل</h2>
+            </section>
 
-            <!-- navbar -->
-            <nav>
-                <h3>مدارس المعالي الإبداعية الأهلية</h3>
-            </nav>
-            <!-- navbar -->
+            <% if (arr.length <=0) { %>
+                <h2 style="text-align: center; font-size: 22px; color: #0075ff; margin-top: 100px;">لا يوجد بيانات
+                    متاحة</h2>
+                <% } %>
 
-            <section class="list">
-                <section class="section-header">
-                    <h2>قائمة طلاب الفصل</h2>
-                </section>
+                    <% if (arr.length> 0) { %>
+                        <section class="container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">م</th>
+                                        <th scope="col">الاسم بالكامل</th>
+                                        <th scope="col">الحضور و الغياب</th>
+                                        <th scope="col">السلوكيات</th>
+                                        <th scope="col">المهارات</th>
+                                        <th scope="col">التعديلات</th>
+                                        <th scope="col">الحاله</th>
+                                    </tr>
+                                </thead>
 
-                <% if (arr.length <=0) { %>
-                    <h2 style="text-align: center; font-size: 22px; color: #0075ff; margin-top: 100px;">لا يوجد بيانات
-                        متاحة</h2>
-                    <% } %>
-
-                        <% if (arr.length> 0) { %>
-                            <section class="container">
-                                <table>
-                                    <thead>
+                                <tbody>
+                                    <% arr.forEach((element, index)=> { %>
                                         <tr>
-                                            <th scope="col">م</th>
-                                            <th scope="col">الاسم بالكامل</th>
-                                            <th scope="col">الحضور الغياب والسلوكيات</th>
-                                            <th scope="col">التعديلات</th>
-                                            <th scope="col">الحاله</th>
-                                        </tr>
-                                    </thead>
+                                            <th scope="row">
+                                                <%= index+1 %>
+                                            </th>
 
-                                    <tbody>
-                                        <% arr.forEach((element, index)=> { %>
-                                            <tr>
-                                                <th scope="row">
-                                                    <%= index+1 %>
-                                                </th>
-                                                <td>
-                                                    <%= element.fullName %>
-                                                </td>
-                                                <td>
-                                                    <form
-                                                        action="/pages/attendance/<%= element._id %>/present?_method=PUT"
-                                                        method="POST" style="display:inline;">
-                                                        <button class="Presence" type="submit">حاضر</button>
-                                                    </form>
-                                                    <form
-                                                        action="/pages/attendance/<%= element._id %>/absent?_method=PUT"
-                                                        method="POST" style="display:inline;">
-                                                        <button class="absence" type="submit">غائب</button>
-                                                    </form>
+                                            <td>
+                                                <%= element.fullName %>
+                                            </td>
 
+                                            <td>
+                                                <form action="/pages/attendance/<%= element._id %>/present?_method=PUT"
+                                                    method="POST" style="display:inline;">
+                                                    <button class="Presence" type="submit">حاضر</button>
+                                                </form>
+                                                <form action="/pages/attendance/<%= element._id %>/absent?_method=PUT"
+                                                    method="POST" style="display:inline;">
+                                                    <button class="absence" type="submit">غائب</button>
+                                                </form>
 
-                                                    <button class="open-modal"
-                                                        data-id="<%= element._id %>">الملاحظات</button>
-
-                                                    <div class="modal" id="modal-<%= element._id %>"
-                                                        style="display:none;">
-                                                        <div class="modal-content">
-                                                            <span class="close"
-                                                                data-id="<%= element._id %>">&times;</span>
-                                                            <form action="/pages/attendance/<%= element._id %>/notes"
-                                                                method="POST">
-                                                                <label for="behavior">السلوكيات:</label>
-                                                                <input type="text" id="behavior" name="behavior"
-                                                                    required>
-                                                                <label for="action">الإجراء المتبع:</label>
-                                                                <input type="text" id="action" name="action" required>
-                                                                <button type="submit" class="btn">إرسال</button>
-                                                            </form>
-                                                        </div>
+                                                <div class="modal" id="modal-<%= element._id %>" style="display:none;">
+                                                    <div class="modal-content">
+                                                        <span class="close" data-id="<%= element._id %>">&times;</span>
+                                                        <form action="/pages/attendance/<%= element._id %>/notes"
+                                                            method="POST">
+                                                            <label for="behavior">السلوكيات:</label>
+                                                            <input type="text" id="behavior" name="behavior" required>
+                                                            <label for="action">الإجراء المتبع:</label>
+                                                            <input type="text" id="action" name="action" required>
+                                                            <button type="submit" class="btn">إرسال</button>
+                                                        </form>
                                                     </div>
-                                                </td>
+                                                </div>
+                                            </td>
 
+                                            <td>
+                                                <button class="open-modal"
+                                                    data-id="<%= element._id %>">الملاحظات</button>
+                                            </td>
 
+                                            <td>
+                                                <div class="skills" id="skills-<%= element._id %>"
+                                                    style="display:none;">
+                                                    <div class="skills-content">
+                                                        <span class="close" data-id="<%= element._id %>">&times;</span>
+                                                        <form onchange="skillsForm()"
+                                                            action="/pages/skills/<%= element._id %>/skill"
+                                                            method="POST">
 
-                                                <td class="edit-td">
+                                                            <label for="semester">الفترة:</label>
+                                                            <select name="semester" id="semester" required>
+                                                                <option value="" selected>اختر...</option>
+                                                                <option value="الأول">الأول</option>
+                                                                <option value="الثاني">الثاني</option>
+                                                                <option value="الثالث">الثالث</option>
+                                                            </select>
+
+                                                            <label for="subject">المادة:</label>
+                                                            <select name="subject" id="subject" required>
+                                                                <option value="" selected>اختر...</option>
+                                                                <option value="لغتي">لغتي</option>
+
+                                                                <option value="الفقه">الفقه</option>
+
+                                                                <option value="التوحيد">التوحيد</option>
+
+                                                                <option value="القرآن">القرآن</option>
+
+                                                                <option value="المهارات الحيايتة والأسارية">المهارات
+                                                                    الحيايتة والأسارية</option>
+                                                                <option value="الرياضيات">الرياضيات</option>
+                                                            </select>
+
+                                                            <label for="skill">المهارة:</label>
+                                                            <select name="skill" id="skill" required>
+                                                                <option value="" selected>اختر...</option>
+                                                            </select>
+
+                                                            <label for="evaluation">التقيم:</label>
+                                                            <select name="evaluation" id="evaluation" required>
+                                                                <option value="" selected>اختر...</option>
+                                                                <option value="غير محدد">غير محدد</option>
+                                                                <option value="غائب">غائب</option>
+                                                                <option value="متقن للمعيار 100%">متقن للمعيار 100%
+                                                                </option>
+                                                                <option value="متقن للمعيار من 90% الى أقل من 100%">متقن
+                                                                    للمعيار من 90% الى أقل من 100%</option>
+                                                                <option value="متقن للمعيار من 80% الى أقل من 90%">متقن
+                                                                    للمعيار من 80% الى أقل من 90%</option>
+                                                                <option value="غير متقن للمعيار أقل من 80%">غير متقن
+                                                                    للمعيار أقل من 80%</option>
+                                                            </select>
+
+                                                            <button type="submit" class="btn">إرسال</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                <button class="add-skills" data-id="<%= element._id %>">
+                                                    اضافة
+                                                </button>
+                                            </td>
+
+                                            <td class="edit-td">
+                                                <section>
                                                     <button>
                                                         <a class="view-btn" href="/pages/<%=element._id%>">
                                                             <i class="fa-solid fa-eye"></i>
                                                         </a>
                                                     </button>
+                                                </section>
 
+                                                <section>
                                                     <a class="edit-btn" href="/pages/edit.html/<%=element._id%>">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </a>
+                                                </section>
 
+                                                <section>
                                                     <form action="/pages/<%= element._id %>?_method=DELETE"
-                                                        method="post">
-                                                        <button class="delete-btn">
+                                                        method="post" onsubmit="return confirmDelete()">
+                                                        <button type="submit" class="delete-btn">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </form>
-                                                </td>
-                                                <td>
-                                                    <% if (element.attendanceRecords.length===0) { %>
-                                                        لا يوجد تسجيل
-                                                        <% } else { %>
-                                                            <% const
-                                                                lastRecord=element.attendanceRecords[element.attendanceRecords.length
-                                                                - 1]; %>
-                                                                <% const today=new Date(); %>
-                                                                    <% if
-                                                                        (lastRecord.date.toDateString()===today.toDateString())
-                                                                        { %>
-                                                                        <%= lastRecord.status %>
-                                                                            <% } else { %>
-                                                                                لا يوجد تسجيل
+                                                </section>
+                                            </td>
+
+                                            <td>
+                                                <% if (element.attendanceRecords.length===0) { %>
+                                                    لا يوجد تسجيل
+                                                    <% } else { %>
+                                                        <% const
+                                                            lastRecord=element.attendanceRecords[element.attendanceRecords.length
+                                                            - 1]; %>
+                                                            <% const today=new Date(); %>
+                                                                <% if
+                                                                    (lastRecord.date.toDateString()===today.toDateString())
+                                                                    { %>
+                                                                    <%= lastRecord.status %>
+                                                                        <% } else { %>
+                                                                            لا يوجد تسجيل
+                                                                            <% } %>
                                                                                 <% } %>
-                                                                                    <% } %>
-                                                </td </tr>
-                                                <% }) %>
-                                    </tbody>
-                                </table>
-                            </section>
-                            <% } %>
-            </section>
-        </main>
-        <!-- Main -->
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </section>
+                        <% } %>
+        </section>
+    </main>
+    <!-- Main -->
 
-        <script>
-            document.querySelectorAll('.open-modal').forEach(button => {
-                button.addEventListener('click', () => {
-                    const id = button.getAttribute('data-id');
-                    document.getElementById('modal-' + id).style.display = 'block';
-                });
+    <script>
+        function confirmDelete() {
+            return confirm("هل أنت متأكد أنك تريد حذف هذا العنصر؟");
+        }
+
+        document.querySelectorAll('.open-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                document.getElementById('modal-' + id).style.display = 'block';
             });
+        });
 
-            document.querySelectorAll('.close').forEach(span => {
-                span.addEventListener('click', () => {
-                    const id = span.getAttribute('data-id');
-                    document.getElementById('modal-' + id).style.display = 'none';
-                });
+        document.querySelectorAll('.close').forEach(span => {
+            span.addEventListener('click', () => {
+                const id = span.getAttribute('data-id');
+                document.getElementById('modal-' + id).style.display = 'none';
             });
+        });
 
-            window.onclick = function (event) {
-                if (event.target.classList.contains('modal')) {
-                    event.target.style.display = 'none';
-                }
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
-        </script>
-        <script src="/js/scribt.js"></script>
-        <script src="/js/all.js"></script>
+        }
+
+
+        document.querySelectorAll('.add-skills').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                document.getElementById('skills-' + id).style.display = 'block';
+            });
+        });
+
+        document.querySelectorAll('.close').forEach(span => {
+            span.addEventListener('click', () => {
+                const id = span.getAttribute('data-id');
+                document.getElementById('skills-' + id).style.display = 'none';
+            });
+        });
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('skills')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+
+
+        function off(e) {
+            e.preventDefault()
+        }
+    </script>
+    <script src="/js/scribt.js"></script>
+    <script src="/js/all.js"></script>
 </body>
 
 </html>

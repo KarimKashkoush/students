@@ -70,6 +70,25 @@ router.post('/pages/attendance/:id/notes', async (req, res) => {
     }
 });
 
+router.post('/pages/skills/:id/skill', async (req, res) => {
+    try {
+        const student = await Mydata.findById(req.params.id);
+        if (student) {
+            student.skill.push({
+                semester: req.body.semester,
+                subject: req.body.subject,
+                skill: req.body.skill,
+                evaluation: req.body.evaluation
+            });
+            await student.save();
+        }
+        res.redirect('/pages/list.html');
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('An error occurred');
+    }
+});
+
 // Other routes (e.g., get, post, delete)
 
 router.get('/', userController.index)
@@ -89,11 +108,6 @@ router.get('/pages/edit.html/:id', userController.edit);
 router.put('/pages/edit.html/:id', userController.editMongo);
 
 router.get('/pages/:id', userController.findStudentView);
-
-
-
-
-
 
 
 module.exports = router

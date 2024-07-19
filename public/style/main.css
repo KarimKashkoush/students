@@ -383,7 +383,7 @@ form .form-control:focus {
 
 .list .container table tbody tr td,
 .list-table tbody tr td {
-    padding-block: 3px;
+    padding: 3px 5px;
 }
 
 .list .container table tbody tr:nth-child(even),
@@ -412,9 +412,16 @@ form .form-control:focus {
     border-radius: 3px;
 }
 
+.list .container table tbody tr .add-skills {
+    background-color: #16505591;
+    color: var(--w-color);
+    padding: 2px 10px;
+    border-radius: 3px;
+}
+
 .list .container table tbody .edit-td {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 7px;
 }
@@ -434,6 +441,7 @@ form .form-control:focus {
 .list .container table tbody .edit-td .delete-btn {
     color: rgba(244, 67, 54, 0.9);
 }
+
 
 .list-table tr,
 .list-table td,
@@ -525,7 +533,8 @@ form .form-control:focus {
 
 
 
-.modal {
+.modal,
+.skills {
     display: none;
     position: fixed;
     z-index: 1;
@@ -539,7 +548,8 @@ form .form-control:focus {
     padding-top: 40px;
 }
 
-.modal-content {
+.modal-content,
+.skills-content {
     background-color: #fefefe;
     margin: 5% auto;
     padding: 20px;
@@ -561,7 +571,9 @@ form .form-control:focus {
     cursor: pointer;
 }
 
-.modal form input {
+.modal form input,
+.skills form input,
+.skills form select {
     border: 1px solid var(--main-color);
     padding: 5px 10px;
 }

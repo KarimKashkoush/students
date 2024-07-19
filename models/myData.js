@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
+
+const skillSchema = new Schema({
+    semester: String,
+    subject: String,
+    skill: String,
+    evaluation: String
+}, { _id: false });
+
 // define the Schema (the structure of the article)
 const notesSchema = new Schema({
     behavior: String,
@@ -35,7 +44,8 @@ const articleSchema = new Schema({
     transport: String,
     healthy: String,
     notes: [notesSchema],
-    attendanceRecords: [attendanceRecordSchema]
+    attendanceRecords: [attendanceRecordSchema],
+    skill: [skillSchema]
 },
     { timestamps: true }
 );
