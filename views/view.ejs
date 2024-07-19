@@ -61,273 +61,242 @@
 
 <body>
     <!-- SideBar -->
-    <section class="sidebar" id="sidebar">
-        <span class="open-close-sidebar" onclick="openCloseSidebar()">
-            <i class="fa-regular fa-circle-left" id="openIcon"></i>
-        </span>
+    <%- include('./components/sidebar.ejs') %>
+        <!-- SideBar -->
 
-        <section class="contact">
-            <ul>
-                <li>
-                    <a href="/">
-                        <i class="fa-solid fa-house"></i>
-                        <span>الرئيسية</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/pages/add.html">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <span>إضافة طالب</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/pages/list.html">
-                        <i class="fa-solid fa-table-cells"></i>
-                        <span>القائمة</span>
-                    </a>
-                </li>
-            </ul>
-        </section>
+        <!-- main -->
+        <main>
+            <!-- header -->
+            <header class="header">
+                <img src="/images/logo.jpg" alt="">
+            </header>
+            <!-- header -->
 
-        <section class="personal">
-            <img src="" alt="">
-        </section>
-    </section>
-    <!-- SideBar -->
+            <!-- navbar -->
+            <nav style="text-align: center;">
+                <h3>مدارس المعالي الإبداعية الابتدائية الأهلية</h3>
+                <h3 class="nav-hiden">فصل (___/___)</h3>
+            </nav>
+            <!-- navbar -->
 
-    <!-- main -->
-    <main>
-        <!-- header -->
-        <header class="header">
-            <img src="/images/logo.jpg" alt="">
-        </header>
-        <!-- header -->
+            <section class="view">
+                <section class="container">
 
-        <!-- navbar -->
-        <nav style="text-align: center;">
-            <h3>مدارس المعالي الإبداعية الابتدائية الأهلية</h3>
-            <h3 class="nav-hiden">فصل (___/___)</h3>
-        </nav>
-        <!-- navbar -->
-
-        <section class="view">
-            <section class="container">
-
-                <section class="table">
-                    <h2 class="table-header">
-                        بيانات الطالب
-                    </h2>
-                    <table>
-                        <tr>
-                            <td>رقم الطالب</td>
-                            <td>
-                                <%= object.id %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>الاسم</td>
-                            <td>
-                                <%= object.fullName %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>الجنسية</td>
-                            <td>
-                                <%= object.nationality %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>رقم الهاتف</td>
-                            <td>
-                                <%= object.tele %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>العنوان</td>
-                            <td>
-                                <%= object.Country %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ايميل ولي الأمر</td>
-                            <td>
-                                <%= object.email %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ايميل الطالب علي منصة مدرستي</td>
-                            <td>
-                                <%= object.emailStudent %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>الصف الدراسي الحالي</td>
-                            <td>
-                                <%= object.Semester %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>وظيفة ولي الأمر</td>
-                            <td>
-                                <%= object.job %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>وسيلة الانتقال</td>
-                            <td>
-                                <%= object.transport %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ظروف صحية</td>
-                            <td>
-                                <%= object.healthy %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>تاريخ الإضافة</td>
-                            <td>
-                                <%= moment(`${object.createdAt}`).format('ll');%>
-                                    (<%= moment(`${object.createdAt}`).format('hh:mm:ss A');%>)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>تاريخ أخر تعديل</td>
-                            <td>
-                                <%= moment(`${object.updatedAt}`).format('ll');%>
-                                    (<%= moment(`${object.updatedAt}`).format('hh:mm:ss A');%>)
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-
-                <section class="table">
-                    <h2 class="table-header">
-                        عدد أيام الغياب والحضور
-                    </h2>
-                    <table>
-                        <tr>
-                            <th>عدد أيام الحضور</th>
-                            <th>عدد أيام الغياب</th>
-                        </tr>
-                        <% let presentDays=0; %>
-                            <% let absentDays=0; %>
-                                <% object.attendanceRecords.forEach(record=> { %>
-                                    <% if (record.status==='حاضر' ) { %>
-                                        <% presentDays++; %>
-                                            <% } else if (record.status==='غائب' ) { %>
-                                                <% absentDays++; %>
-                                                    <% } %>
-                                                        <% }); %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= presentDays %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= absentDays %>
-                                                                </td>
-                                                            </tr>
-                    </table>
-                </section>
-
-                <section class="table">
-                    <h2 class="table-header nwePage">
-                        الظواهر السلوكية
-                    </h2>
-
-                    <table>
-                        <tr>
-                            <th>التاريخ</th>
-                            <th>الظاهرة السلوكية</th>
-                            <th>الإجراء المتبع</th>
-                        </tr>
-
-                        <% object.notes.forEach(element=> { %>
+                    <section class="table">
+                        <h2 class="table-header">
+                            بيانات الطالب
+                        </h2>
+                        <table>
                             <tr>
+                                <td>رقم الطالب</td>
                                 <td>
-                                    (<%= moment(element.date).format('hh:mm:ss A') %>)
-                                        <%= moment(element.date).format('DD-MM-YYYY') %>
-                                </td>
-                                <td>
-                                    <%= element.behavior %>
-                                </td>
-                                <td>
-                                    <%= element.action %>
+                                    <%= object.id %>
                                 </td>
                             </tr>
-                            <% }) %>
-                    </table>
-
-                </section>
-
-                <section class="table">
-                    <h2 class="table-header nwePage">
-                        حالة الطالب
-                    </h2>
-                    <table>
-                        <tr>
-                            <th>اليوم</ف>
-                            <th>الحالة</ف>
-                        </tr>
-
-                        <% object.attendanceRecords.forEach(record=> { %>
                             <tr>
+                                <td>الاسم</td>
                                 <td>
-                                    (<%= moment(record.date).format('hh:mm:ss A') %>)
-                                        <%= moment(record.date).format('DD-MM-YYYY') %>
-                                </td>
-                                <td>
-                                    <%= record.status %>
+                                    <%= object.fullName %>
                                 </td>
                             </tr>
-                            <% }); %>
-                    </table>
-                </section>
+                            <tr>
+                                <td>الجنسية</td>
+                                <td>
+                                    <%= object.nationality %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>رقم الهاتف</td>
+                                <td>
+                                    <%= object.tele %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>العنوان</td>
+                                <td>
+                                    <%= object.Country %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ايميل ولي الأمر</td>
+                                <td>
+                                    <%= object.email %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ايميل الطالب علي منصة مدرستي</td>
+                                <td>
+                                    <%= object.emailStudent %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>الصف الدراسي الحالي</td>
+                                <td>
+                                    <%= object.Semester %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>وظيفة ولي الأمر</td>
+                                <td>
+                                    <%= object.job %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>وسيلة الانتقال</td>
+                                <td>
+                                    <%= object.transport %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ظروف صحية</td>
+                                <td>
+                                    <%= object.healthy %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>تاريخ الإضافة</td>
+                                <td>
+                                    <%= moment(`${object.createdAt}`).format('ll');%>
+                                        (<%= moment(`${object.createdAt}`).format('hh:mm:ss A');%>)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>تاريخ أخر تعديل</td>
+                                <td>
+                                    <%= moment(`${object.updatedAt}`).format('ll');%>
+                                        (<%= moment(`${object.updatedAt}`).format('hh:mm:ss A');%>)
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
 
+                    <section class="table">
+                        <h2 class="table-header">
+                            عدد أيام الغياب والحضور
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>عدد أيام الحضور</th>
+                                <th>عدد أيام الغياب</th>
+                            </tr>
+                            <% let presentDays=0; %>
+                                <% let absentDays=0; %>
+                                    <% object.attendanceRecords.forEach(record=> { %>
+                                        <% if (record.status==='حاضر' ) { %>
+                                            <% presentDays++; %>
+                                                <% } else if (record.status==='غائب' ) { %>
+                                                    <% absentDays++; %>
+                                                        <% } %>
+                                                            <% }); %>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= presentDays %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= absentDays %>
+                                                                    </td>
+                                                                </tr>
+                        </table>
+                    </section>
 
+                    <section class="table">
+                        <h2 class="table-header nwePage">
+                            الظواهر السلوكية
+                        </h2>
 
-                <section class="table">
-                    <h2 class="table-header nwePage">
-                        أيام غياب الطالب
-                    </h2>
-                    <table>
-                        <tr>
-                            <th>التاريخ</th>
-                        </tr>
-                        <% object.attendanceRecords.forEach(record=> { %>
-                            <% if (record.status==='غائب' ) { %>
+                        <table>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>الظاهرة السلوكية</th>
+                                <th>الإجراء المتبع</th>
+                            </tr>
+
+                            <% object.notes.forEach(element=> { %>
                                 <tr>
                                     <td>
-                                        <%= moment(record.date).format('DD-MM-YYYY') %>
+                                        (<%= moment(element.date).format('hh:mm:ss A') %>)
+                                            <%= moment(element.date).format('DD-MM-YYYY') %>
+                                    </td>
+                                    <td>
+                                        <%= element.behavior %>
+                                    </td>
+                                    <td>
+                                        <%= element.action %>
                                     </td>
                                 </tr>
-                                <% } %>
-                                    <% }); %>
-                    </table>
-                </section>
+                                <% }) %>
+                        </table>
 
-                <section class="Administration">
-                    <section>
-                        <h2 class="teacherNam">المعلم</h2>
                     </section>
-                    <section>
-                        <h2>المرشد الطلابي</h2>
-                    </section>
-                    <section>
-                        <h2>مدير المدرسة</h2>
-                    </section>
-                </section>
 
-                <button class="btn print" onclick="printPage()">
-                    طباعة تقرير حالة الطالب
-                </button>
+                    <section class="table">
+                        <h2 class="table-header nwePage">
+                            حالة الطالب
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>اليوم</ف>
+                                <th>الحالة</ف>
+                            </tr>
+
+                            <% object.attendanceRecords.forEach(record=> { %>
+                                <tr>
+                                    <td>
+                                        (<%= moment(record.date).format('hh:mm:ss A') %>)
+                                            <%= moment(record.date).format('DD-MM-YYYY') %>
+                                    </td>
+                                    <td>
+                                        <%= record.status %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </table>
+                    </section>
+
+
+
+                    <section class="table">
+                        <h2 class="table-header nwePage">
+                            أيام غياب الطالب
+                        </h2>
+                        <table>
+                            <tr>
+                                <th>التاريخ</th>
+                            </tr>
+                            <% object.attendanceRecords.forEach(record=> { %>
+                                <% if (record.status==='غائب' ) { %>
+                                    <tr>
+                                        <td>
+                                            <%= moment(record.date).format('DD-MM-YYYY') %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% }); %>
+                        </table>
+                    </section>
+
+                    <section class="Administration">
+                        <section>
+                            <h2 class="teacherNam">المعلم</h2>
+                        </section>
+                        <section>
+                            <h2>المرشد الطلابي</h2>
+                        </section>
+                        <section>
+                            <h2>مدير المدرسة</h2>
+                        </section>
+                    </section>
+
+                    <button class="btn print" onclick="printPage()">
+                        طباعة تقرير حالة الطالب
+                    </button>
+                </section>
             </section>
-        </section>
-    </main>
-    <!-- main -->
+        </main>
+        <!-- main -->
 
-    <script src="/js/scribt.js"></script>
-    <script src="/js/all.js"></script>
+        <script src="/js/scribt.js"></script>
+        <script src="/js/all.js"></script>
 </body>
 
 </html>
