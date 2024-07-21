@@ -109,5 +109,10 @@ router.put('/pages/edit.html/:id', userController.editMongo);
 
 router.get('/pages/:id', userController.findStudentView);
 
+router.get('/pages/login.html', userController.login);
+
+router.get('/pages/signup', userController.signup);
+
+
 
 module.exports = router

@@ -2,6 +2,18 @@ const moment = require('moment');
 const hijri = require('moment-hijri');
 const Mydata = require('../models/myData');
 
+const login = (req, res) => {
+    res.render('login')
+}
+
+const signup = (req, res) => {
+    Mydata.find()
+        .then((result) => { res.render('signup', { arr: result }); })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 const skills = (req, res) => {
     Mydata.find()
         .then((result) => { res.render('skills', { arr: result }); })
@@ -68,4 +80,4 @@ const findStudentView = (req, res) => {
 }
 
 
-module.exports = { index, add, addMongo, findStudent, list, edit, editMongo, findStudentView, skills }
+module.exports = { index, add, addMongo, findStudent, list, edit, editMongo, findStudentView, skills, login, signup }
