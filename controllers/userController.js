@@ -2,18 +2,6 @@ const moment = require('moment');
 const hijri = require('moment-hijri');
 const Mydata = require('../models/myData');
 
-const login = (req, res) => {
-    res.render('login')
-}
-
-const signup = (req, res) => {
-    Mydata.find()
-        .then((result) => { res.render('signup', { arr: result }); })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
 const skills = (req, res) => {
     Mydata.find()
         .then((result) => { res.render('skills', { arr: result }); })
@@ -37,13 +25,13 @@ const add = (req, res) => {
 const addMongo = (req, res) => {
     const Data = new Mydata(req.body);
     Data.save().then(() => {
-        res.redirect('/pages/add.html');
+        res.redirect('/add');
     });
 }
 
 const findStudent = (req, res) => {
     Mydata.findByIdAndDelete(req.params.id)
-        .then(() => { res.redirect('/pages/list.html'); })
+        .then(() => { res.redirect('/list'); })
         .catch((err) => { console.log(err); });
 }
 
@@ -65,7 +53,7 @@ const edit = (req, res) => {
 
 const editMongo = (req, res) => {
     Mydata.updateOne({ _id: req.params.id }, req.body)
-        .then(() => { res.redirect('/'); })
+        .then(() => { res.redirect('/list'); })
         .catch((err) => {
             console.log(err);
         });
@@ -80,4 +68,4 @@ const findStudentView = (req, res) => {
 }
 
 
-module.exports = { index, add, addMongo, findStudent, list, edit, editMongo, findStudentView, skills, login, signup }
+module.exports = { index, add, addMongo, findStudent, list, edit, editMongo, findStudentView, skills }

@@ -33,7 +33,7 @@
             </section>
 
             <section class="container">
-                <form action="/pages/edit.html/<%= obj._id %>?_method=PUT" method="post">
+                <form action="/edit/<%= obj._id %>?_method=PUT" method="post">
                     <section class="input-section">
                         <label for="inputName" class="form-label">الاسم</label>
                         <input value="<%= obj.fullName %>" placeholder="الاسم" type="text" class="form-control" id="inputName" name="fullName" />

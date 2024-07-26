@@ -21,7 +21,7 @@ mongoose.connect("mongodb+srv://studentsName:6BJSOredO4wouN9v@cluster0.g0ywcmy.m
     app.listen(port, () => {
         console.log(`http://localhost:${port}`);
     });
-}).catch((err) => {n
+}).catch((err) => {
     console.log(err);
 });
 

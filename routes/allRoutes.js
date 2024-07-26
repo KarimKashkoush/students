@@ -14,7 +14,7 @@ const findTodayAttendanceRecord = (attendanceRecords) => {
 };
 
 // Update attendance to 'حاضر'
-router.put('/pages/attendance/:id/present', async (req, res) => {
+router.put('/attendance/:id/present', async (req, res) => {
     try {
         const student = await Mydata.findById(req.params.id);
         if (student) {
@@ -27,14 +27,14 @@ router.put('/pages/attendance/:id/present', async (req, res) => {
             }
             await student.save();
         }
-        res.redirect('/pages/list.html');
+        res.redirect('/list');
     } catch (err) {
         console.log(err);
     }
 });
 
 // Update attendance to 'غائب'
-router.put('/pages/attendance/:id/absent', async (req, res) => {
+router.put('/attendance/:id/absent', async (req, res) => {
     try {
         const student = await Mydata.findById(req.params.id);
         if (student) {
@@ -47,13 +47,13 @@ router.put('/pages/attendance/:id/absent', async (req, res) => {
             }
             await student.save();
         }
-        res.redirect('/pages/list.html');
+        res.redirect('/list');
     } catch (err) {
         console.log(err);
     }
 });
 
-router.post('/pages/attendance/:id/notes', async (req, res) => {
+router.post('/attendance/:id/notes', async (req, res) => {
     try {
         const student = await Mydata.findById(req.params.id);
         if (student) {
@@ -63,14 +63,14 @@ router.post('/pages/attendance/:id/notes', async (req, res) => {
             });
             await student.save();
         }
-        res.redirect('/pages/list.html');
+        res.redirect('/list');
     } catch (err) {
         console.log(err);
         res.status(500).send('An error occurred');
     }
 });
 
-router.post('/pages/skills/:id/skill', async (req, res) => {
+router.post('/skills/:id/skill', async (req, res) => {
     try {
         const student = await Mydata.findById(req.params.id);
         if (student) {
@@ -82,7 +82,7 @@ router.post('/pages/skills/:id/skill', async (req, res) => {
             });
             await student.save();
         }
-        res.redirect('/pages/list.html');
+        res.redirect('/list');
     } catch (err) {
         console.log(err);
         res.status(500).send('An error occurred');
@@ -93,25 +93,22 @@ router.post('/pages/skills/:id/skill', async (req, res) => {
 
 router.get('/', userController.index)
 
-router.get('/pages/skills.html', userController.skills)
+router.get('/skills', userController.skills)
 
-router.get('/pages/add.html', userController.add);
+router.get('/add', userController.add);
 
-router.post('/pages/add.html', userController.addMongo);
+router.post('/add', userController.addMongo);
 
-router.delete('/pages/:id', userController.findStudent);
+router.delete('/:id', userController.findStudent);
 
-router.get('/pages/list.html', userController.list);
+router.get('/list', userController.list);
 
-router.get('/pages/edit.html/:id', userController.edit);
+router.get('/edit/:id', userController.edit);
 
-router.put('/pages/edit.html/:id', userController.editMongo);
+router.put('/edit/:id', userController.editMongo);
 
-router.get('/pages/:id', userController.findStudentView);
+router.get('/:id', userController.findStudentView);
 
-router.get('/pages/login.html', userController.login);
-
-router.get('/pages/signup', userController.signup);
 
 
 
