@@ -52,8 +52,6 @@ function printPage() {
     print();
 }
 
-
-
 const skills = {
     // Arabic
     arbicLanguage: {
