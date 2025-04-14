@@ -321,7 +321,7 @@
                                                 <% const todayNotes=element.notes.filter(note=>
                                                     moment(note.date).isSame(moment(), 'day')); %>
                                                     <% if (todayNotes.length===0) { %>
-                                                        #####
+                                                        لا يوجد ملاحظات
                                                         <% } else { %>
                                                             <% todayNotes.forEach(note=> { %>
                                                                 <%= note.behavior %>
