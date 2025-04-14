@@ -348,7 +348,6 @@ form .form-control:focus {
     outline: 1px solid red;
     box-shadow: var(--box-shadow);
 }
-
 /* add */
 
 /* list */
@@ -367,7 +366,7 @@ form .form-control:focus {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-    min-width: 500px;
+    min-width: 750px;
 }
 
 .list .container table tr th,
@@ -375,6 +374,7 @@ form .form-control:focus {
 .list-table tfoot th {
     background-color: var(--main-color);
     color: var(--w-color);
+    padding: 7px;
 }
 
 .list-table tfoot tr th {
@@ -441,7 +441,6 @@ form .form-control:focus {
 .list .container table tbody .edit-td .delete-btn {
     color: rgba(244, 67, 54, 0.9);
 }
-
 
 .list-table tr,
 .list-table td,
