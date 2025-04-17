@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرئيسية</title>
+    <title>تقرير يوم <%= hijriDate().format('iD / iM / iYYYY') %> - فصل 1 / أ - المعلم محمد رضا</title>
     <!-- Css -->
     <link rel="stylesheet" href="style/all.css">
     <link rel="stylesheet" href="style/main.css">
@@ -13,6 +13,17 @@
 
     <style>
         @media print {
+
+            @page {
+                size: tabloid;
+            }
+
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
             main {
                 margin: 0;
                 width: 100%;
@@ -108,7 +119,7 @@
             <!-- navbar -->
             <nav style="text-align: center;">
                 <h3>مدارس المعالي الإبداعية الابتدائية الأهلية</h3>
-                <h3 class="nav-hiden">فصل (___/___)</h3>
+                <h3 class="nav-hiden">فصل (1/أ)</h3>
             </nav>
             <!-- navbar -->
 
@@ -339,7 +350,7 @@
                             <th>مدير المدرسة</th>
                         </tr>
                         <tr>
-                            <td style="height: 30px;"></td>
+                            <td style="height: 30px;">أ/ محمد رضا</td>
                             <td style="height: 30px;"></td>
                             <td style="height: 30px;"></td>
                         </tr>

@@ -13,6 +13,8 @@ const findTodayAttendanceRecord = (attendanceRecords) => {
     return attendanceRecords.find(record => moment(record.date).isBetween(todayStart, todayEnd, null, '[]'));
 };
 
+router.get('/favicon.ico', (req, res) => res.status(204).end());
+
 // Update attendance to 'حاضر'
 router.put('/attendance/:id/present', async (req, res) => {
     try {
